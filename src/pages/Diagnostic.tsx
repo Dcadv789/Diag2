@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, X, Gem } from 'lucide-react';
 import { useStore } from '../lib/store';
@@ -26,11 +26,14 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
     : false;
 
   const calculateProgress = () => {
-    const totalQuestions = questions.length;
-    if (totalQuestions === 0) return 0;
-    const answeredQuestions = Object.keys(answers).length;
-    const progress = (answeredQuestions / totalQuestions) * 100;
-    return Math.min(progress, 100);
+    const totalAnswered = Object.keys(answers).length;
+    const totalAvailable = groups.reduce((total, group) => {
+      const groupQuestionsCount = questions.filter(q => q.group_id === group.id).length;
+      return total + groupQuestionsCount;
+    }, 0);
+    
+    if (totalAvailable === 0) return 0;
+    return Math.min((totalAnswered / totalAvailable) * 100, 100);
   };
 
   const handleSubmitInfo = (e: React.FormEvent) => {
@@ -129,14 +132,12 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
               <div className="px-8 pt-6">
                 <div className="w-full bg-gray-700/50 h-4 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-blue-600 transition-all duration-300 ease-out rounded-full flex items-center"
+                    className="h-full bg-blue-600 transition-all duration-300 ease-out rounded-full flex items-center justify-end relative"
                     style={{ width: `${progress}%` }}
                   >
-                    {progress > 0 && (
-                      <span className="text-[10px] font-medium text-white ml-2">
-                        {Math.round(progress)}%
-                      </span>
-                    )}
+                    <span className="absolute right-2 text-[10px] font-medium text-white">
+                      {Math.round(progress)}%
+                    </span>
                   </div>
                 </div>
               </div>

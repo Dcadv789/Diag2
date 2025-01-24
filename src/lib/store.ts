@@ -55,17 +55,9 @@ export const useStore = create<Store>()(
       questions: [],
       assessments: [],
 
-      fetchGroups: () => {
-        // Data is already loaded from persist middleware
-      },
-
-      fetchQuestions: () => {
-        // Data is already loaded from persist middleware
-      },
-
-      fetchAssessments: () => {
-        // Data is already loaded from persist middleware
-      },
+      fetchGroups: () => {},
+      fetchQuestions: () => {},
+      fetchAssessments: () => {},
 
       addGroup: (name: string) => {
         const { groups } = get();
@@ -126,7 +118,7 @@ export const useStore = create<Store>()(
           id: crypto.randomUUID(),
           created_at: new Date().toISOString(),
         };
-        set({ assessments: [...assessments, newAssessment] });
+        set({ assessments: [newAssessment] });
       },
 
       deleteAssessment: (id: string) => {
@@ -138,17 +130,6 @@ export const useStore = create<Store>()(
     }),
     {
       name: 'diagnostic-storage',
-      merge: (persistedState: any, currentState) => {
-        // Garante que não há duplicatas nos assessments
-        const uniqueAssessments = Array.from(
-          new Map(persistedState.assessments.map((a: Assessment) => [a.id, a])).values()
-        );
-        return {
-          ...currentState,
-          ...persistedState,
-          assessments: uniqueAssessments,
-        };
-      },
     }
   )
 );
