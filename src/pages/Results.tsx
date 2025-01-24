@@ -158,6 +158,13 @@ export default function Results() {
                   <p><span className="text-gray-400">Cliente:</span> {selectedAssessment.client_name}</p>
                   <p><span className="text-gray-400">Empresa:</span> {selectedAssessment.company_name}</p>
                   <p><span className="text-gray-400">CNPJ:</span> {selectedAssessment.cnpj}</p>
+                  <p><span className="text-gray-400">Tem Sócios:</span> {selectedAssessment.has_partners}</p>
+                  <p><span className="text-gray-400">Faturamento:</span> {selectedAssessment.revenue}</p>
+                  <p><span className="text-gray-400">Setor:</span> {selectedAssessment.sector}</p>
+                  <p><span className="text-gray-400">Tempo de Atividade:</span> {selectedAssessment.time_in_business}</p>
+                  <p><span className="text-gray-400">Funcionários:</span> {selectedAssessment.employees_count}</p>
+                  <p><span className="text-gray-400">Localização:</span> {selectedAssessment.location}</p>
+                  <p><span className="text-gray-400">Forma Jurídica:</span> {selectedAssessment.legal_form}</p>
                   <p><span className="text-gray-400">Data:</span> {new Date(selectedAssessment.created_at).toLocaleDateString()}</p>
                 </div>
               </div>

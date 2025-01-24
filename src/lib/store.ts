@@ -23,6 +23,13 @@ interface Assessment {
   client_name: string;
   company_name: string;
   cnpj: string;
+  has_partners: string;
+  revenue: string;
+  sector: string;
+  time_in_business: string;
+  employees_count: string;
+  location: string;
+  legal_form: string;
   created_at: string;
   answers: Array<{
     question_id: string;

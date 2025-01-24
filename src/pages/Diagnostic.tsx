@@ -14,6 +14,13 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
     name: '',
     company: '',
     cnpj: '',
+    has_partners: '',
+    revenue: '',
+    sector: '',
+    time_in_business: '',
+    employees_count: '',
+    location: '',
+    legal_form: '',
   });
 
   const currentGroup = groups[currentGroupIndex];
@@ -84,6 +91,13 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
       client_name: clientInfo.name,
       company_name: clientInfo.company,
       cnpj: clientInfo.cnpj,
+      has_partners: clientInfo.has_partners,
+      revenue: clientInfo.revenue,
+      sector: clientInfo.sector,
+      time_in_business: clientInfo.time_in_business,
+      employees_count: clientInfo.employees_count,
+      location: clientInfo.location,
+      legal_form: clientInfo.legal_form,
       answers: result.answers
     });
 
@@ -145,47 +159,137 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
 
             {step === 'client-info' && (
               <div className="p-8">
-                <form onSubmit={handleSubmitInfo} className="space-y-6">
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-white">Nome</label>
-                    <input
-                      type="text"
-                      required
-                      value={clientInfo.name}
-                      onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
-                      className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
-                    />
+                <form onSubmit={handleSubmitInfo} className="grid grid-cols-2 gap-8">
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Nome</label>
+                      <input
+                        type="text"
+                        required
+                        value={clientInfo.name}
+                        onChange={(e) => setClientInfo({ ...clientInfo, name: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Nome da Empresa</label>
+                      <input
+                        type="text"
+                        required
+                        value={clientInfo.company}
+                        onChange={(e) => setClientInfo({ ...clientInfo, company: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">CNPJ</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ex.: 00.000.000/0000-00"
+                        value={clientInfo.cnpj}
+                        onChange={(e) => setClientInfo({ ...clientInfo, cnpj: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Tem Sócios</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ex.: Sim ou não"
+                        value={clientInfo.has_partners}
+                        onChange={(e) => setClientInfo({ ...clientInfo, has_partners: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Faturamento</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ex.: R$ 100.000,00"
+                        value={clientInfo.revenue}
+                        onChange={(e) => setClientInfo({ ...clientInfo, revenue: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-white">Empresa</label>
-                    <input
-                      type="text"
-                      required
-                      value={clientInfo.company}
-                      onChange={(e) => setClientInfo({ ...clientInfo, company: e.target.value })}
-                      className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
-                    />
+                  <div className="space-y-6">
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Setor de Atuação</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ex.: Comércio, Serviços, Indústria, Tecnologia, etc."
+                        value={clientInfo.sector}
+                        onChange={(e) => setClientInfo({ ...clientInfo, sector: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Tempo de Atividade</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ex.: Menos de 1 ano, 1 a 3 anos, mais de 3 anos"
+                        value={clientInfo.time_in_business}
+                        onChange={(e) => setClientInfo({ ...clientInfo, time_in_business: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Número de funcionários</label>
+                      <input
+                        type="text"
+                        required
+                        value={clientInfo.employees_count}
+                        onChange={(e) => setClientInfo({ ...clientInfo, employees_count: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Localização Principal</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ex.: Cidade/Estado"
+                        value={clientInfo.location}
+                        onChange={(e) => setClientInfo({ ...clientInfo, location: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
+
+                    <div>
+                      <label className="block text-sm font-medium mb-2 text-white">Forma Jurídica</label>
+                      <input
+                        type="text"
+                        required
+                        placeholder="Ex.: MEI, LTDA, EIRELI, SA, etc."
+                        value={clientInfo.legal_form}
+                        onChange={(e) => setClientInfo({ ...clientInfo, legal_form: e.target.value })}
+                        className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
+                      />
+                    </div>
                   </div>
 
-                  <div>
-                    <label className="block text-sm font-medium mb-2 text-white">CNPJ</label>
-                    <input
-                      type="text"
-                      required
-                      value={clientInfo.cnpj}
-                      onChange={(e) => setClientInfo({ ...clientInfo, cnpj: e.target.value })}
-                      className="w-full px-4 py-2 bg-white/10 border border-white/20 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-transparent text-white placeholder-white/50"
-                    />
+                  <div className="col-span-2 mt-6">
+                    <button
+                      type="submit"
+                      className="w-full flex items-center justify-center px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
+                    >
+                      Iniciar Diagnóstico
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </button>
                   </div>
-
-                  <button
-                    type="submit"
-                    className="w-full flex items-center justify-center px-4 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                  >
-                    Iniciar Diagnóstico
-                    <ArrowRight className="ml-2 w-4 h-4" />
-                  </button>
                 </form>
               </div>
             )}
