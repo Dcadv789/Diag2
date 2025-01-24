@@ -138,6 +138,17 @@ export const useStore = create<Store>()(
     }),
     {
       name: 'diagnostic-storage',
+      merge: (persistedState: any, currentState) => {
+        // Garante que não há duplicatas nos assessments
+        const uniqueAssessments = Array.from(
+          new Map(persistedState.assessments.map((a: Assessment) => [a.id, a])).values()
+        );
+        return {
+          ...currentState,
+          ...persistedState,
+          assessments: uniqueAssessments,
+        };
+      },
     }
   )
 );

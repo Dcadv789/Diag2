@@ -12,11 +12,6 @@ export default function Results() {
     fetchGroups();
   }, [fetchAssessments, fetchGroups]);
 
-  // Remove duplicates by ID
-  const uniqueAssessments = assessments.filter((assessment, index, self) =>
-    index === self.findIndex((a) => a.id === assessment.id)
-  );
-
   const calculateScores = (assessment: any) => {
     if (!assessment) return { groupScores: {}, totalGeral: 0, maxGeral: 0 };
     
@@ -69,7 +64,7 @@ export default function Results() {
     }
   };
 
-  const filteredAssessments = uniqueAssessments.filter(assessment => 
+  const filteredAssessments = assessments.filter(assessment => 
     assessment.client_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     assessment.company_name.toLowerCase().includes(searchTerm.toLowerCase()) ||
     assessment.cnpj.includes(searchTerm)

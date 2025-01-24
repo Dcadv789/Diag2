@@ -27,8 +27,10 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
 
   const calculateProgress = () => {
     const totalQuestions = questions.length;
+    if (totalQuestions === 0) return 0;
     const answeredQuestions = Object.keys(answers).length;
-    return (answeredQuestions / totalQuestions) * 100;
+    const progress = (answeredQuestions / totalQuestions) * 100;
+    return Math.min(progress, 100);
   };
 
   const handleSubmitInfo = (e: React.FormEvent) => {
@@ -85,6 +87,8 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
     navigate('/resultados');
   };
 
+  const progress = calculateProgress();
+
   return (
     <div className="fixed inset-0 bg-black z-50">
       <div className="h-screen flex items-center justify-center">
@@ -125,12 +129,14 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
               <div className="px-8 pt-6">
                 <div className="w-full bg-gray-700/50 h-4 rounded-full overflow-hidden">
                   <div
-                    className="h-full bg-blue-600 transition-all duration-300 ease-out rounded-full flex items-center justify-center min-w-[1.5rem]"
-                    style={{ width: `${calculateProgress()}%` }}
+                    className="h-full bg-blue-600 transition-all duration-300 ease-out rounded-full flex items-center"
+                    style={{ width: `${progress}%` }}
                   >
-                    <span className="text-[10px] font-medium text-white">
-                      {Math.round(calculateProgress())}%
-                    </span>
+                    {progress > 0 && (
+                      <span className="text-[10px] font-medium text-white ml-2">
+                        {Math.round(progress)}%
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
