@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { ClipboardList, Settings, BarChart3 } from 'lucide-react';
+import { ClipboardList, Settings, BarChart3, TrendingUp } from 'lucide-react';
 
 export default function Navbar() {
   const location = useLocation();
@@ -40,6 +40,14 @@ export default function Navbar() {
               >
                 <BarChart3 className="w-4 h-4 mr-2" />
                 Resultados
+              </Link>
+
+              <Link
+                to="/ranking"
+                className={`flex items-center px-3 py-2 rounded-md text-sm font-medium ${isActive('/ranking')}`}
+              >
+                <TrendingUp className="w-4 h-4 mr-2" />
+                Ranking
               </Link>
             </div>
           </div>

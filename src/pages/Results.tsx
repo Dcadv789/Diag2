@@ -98,20 +98,13 @@ export default function Results() {
             {filteredAssessments.length > 0 ? (
               filteredAssessments.map((assessment) => {
                 const { groupScores, totalGeral, maxGeral } = calculateScores(assessment);
-                const totalGeralFormatted = ((totalGeral / maxGeral) * 100).toFixed(1);
 
                 return (
                   <div
                     key={assessment.id}
                     onClick={() => setSelectedAssessment(assessment)}
-                    className="p-4 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors relative group"
+                    className="p-4 bg-gray-700 rounded-lg cursor-pointer hover:bg-gray-600 transition-colors"
                   >
-                    <button
-                      onClick={(e) => handleDeleteAssessment(assessment.id, e)}
-                      className="absolute right-2 top-2 p-2 text-gray-400 hover:text-red-400 opacity-0 group-hover:opacity-100 transition-opacity"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
                     <div className="flex justify-between items-start">
                       <div>
                         <h3 className="font-semibold">{assessment.client_name}</h3>
@@ -122,11 +115,19 @@ export default function Results() {
                           {new Date(assessment.created_at).toLocaleDateString()}
                         </p>
                       </div>
-                      <div className="text-right">
-                        <p className="text-lg font-semibold">{totalGeralFormatted}%</p>
-                        <p className="text-sm text-gray-400">
-                          {totalGeral} de {maxGeral} pontos
-                        </p>
+                      <div className="flex items-start gap-4">
+                        <div className="text-right">
+                          <p className="text-lg font-semibold">{totalGeral} pontos</p>
+                          <p className="text-sm text-gray-400">
+                            de {maxGeral} possíveis
+                          </p>
+                        </div>
+                        <button
+                          onClick={(e) => handleDeleteAssessment(assessment.id, e)}
+                          className="p-2 text-gray-400 hover:text-red-400 transition-colors"
+                        >
+                          <Trash2 className="w-4 h-4" />
+                        </button>
                       </div>
                     </div>
                   </div>
@@ -173,12 +174,11 @@ export default function Results() {
                 <h3 className="font-semibold mb-4">Pontuação Total</h3>
                 {(() => {
                   const { groupScores, totalGeral, maxGeral } = calculateScores(selectedAssessment);
-                  const totalGeralFormatted = ((totalGeral / maxGeral) * 100).toFixed(1);
                   return (
                     <div className="p-4 bg-gray-700 rounded-lg">
                       <div className="flex justify-between items-center">
-                        <span className="text-lg">{totalGeral} de {maxGeral} pontos</span>
-                        <span className="text-2xl font-bold">{totalGeralFormatted}%</span>
+                        <span className="text-lg">{totalGeral} pontos</span>
+                        <span className="text-2xl font-bold">de {maxGeral} possíveis</span>
                       </div>
                     </div>
                   );
@@ -192,17 +192,15 @@ export default function Results() {
                   return Object.entries(groupScores).map(([groupId, data]: [string, any]) => {
                     const group = groups.find(g => g.id === groupId);
                     if (!group) return null;
-
-                    const percentage = ((data.earned / data.possible) * 100).toFixed(1);
                     
                     return (
                       <div key={groupId} className="mb-6">
                         <div className="flex justify-between items-center mb-2">
                           <h4 className="font-medium">{group.name}</h4>
                           <div className="text-right">
-                            <p className="text-lg font-semibold">{percentage}%</p>
+                            <p className="text-lg font-semibold">{data.earned} pontos</p>
                             <p className="text-sm text-gray-400">
-                              {data.earned} de {data.possible} pontos
+                              de {data.possible} possíveis
                             </p>
                           </div>
                         </div>

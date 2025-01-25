@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Backoffice from './pages/Backoffice';
 import Diagnostic from './pages/Diagnostic';
 import Results from './pages/Results';
+import Ranking from './pages/Ranking';
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
             <Route path="/backoffice" element={<Backoffice />} />
             <Route path="/diagnostico" element={<Diagnostic />} />
             <Route path="/resultados" element={<Results />} />
+            <Route path="/ranking" element={<Ranking />} />
             <Route path="/" element={<Diagnostic />} />
           </Routes>
         </main>
