@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, X, Gem } from 'lucide-react';
 import { useStore } from '../lib/store';
 import { DiagnosticCalculator } from '../components/DiagnosticCalculator';
+import { SparklesCore } from '../components/SparklesCore';
 
 function DiagnosticModal({ onClose }: { onClose: () => void }) {
   const navigate = useNavigate();
@@ -108,9 +109,18 @@ function DiagnosticModal({ onClose }: { onClose: () => void }) {
 
   return (
     <div className="fixed inset-0 bg-black z-50">
-      <div className="h-screen flex items-center justify-center">
-        <div className="w-full max-w-4xl bg-white/10 backdrop-blur-sm rounded-2xl flex flex-col max-h-screen">
-          <div className="bg-gray-800/80 p-8 border-b border-gray-700 flex justify-between items-center rounded-t-2xl">
+      <SparklesCore
+        background="transparent"
+        particleColor="rgba(255, 255, 255, 0.8)"
+        particleDensity={100}
+        speed={0.5}
+        minSize={0.5}
+        maxSize={1}
+      />
+      
+      <div className="h-screen flex items-center justify-center p-6">
+        <div className="w-full max-w-6xl bg-gray-900/80 backdrop-blur-sm flex flex-col max-h-screen relative rounded-2xl overflow-hidden">
+          <div className="bg-gray-800/80 p-8 border-b border-gray-700 flex justify-between items-center">
             <div className="flex-1">
               <h1 className="text-3xl font-bold text-white mb-4">Diagnóstico Empresarial</h1>
               <div className="grid grid-cols-2 gap-8">
@@ -428,7 +438,7 @@ export default function Diagnostic() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       <div className="bg-gray-800 rounded-lg p-8 text-center">
         <h1 className="text-3xl font-bold text-white mb-4">
           Bem-vindo ao Diagnóstico Empresarial
